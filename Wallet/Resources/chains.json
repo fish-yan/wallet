@@ -1,0 +1,24 @@
+{
+    "chainList": [
+        {
+            "chainType": "eth",
+            "chainId": 1,
+            "rpcUrl": "https://eth.llamarpc.com",
+            "icon": "https://icons.llamao.fi/icons/chains/rsz_ethereum.jpg",
+            "name": "Ethereum",
+            "unit": "ETH",
+            "txExplorerUrl": "https://etherscan.com/tx/{tx}",
+            "addressExplorerUrl": "https://etherscan.com/address/{address}"
+        },
+        {
+            "chainType": "bsc",
+            "chainId": 56,
+            "rpcUrl": "https://bsc-dataseed1.binance.org",
+            "icon": "https://icons.llamao.fi/icons/chains/rsz_binance.jpg",
+            "name": "Binance Smart Chain",
+            "unit": "BNB",
+            "txExplorerUrl": "https://bscscan.com/tx/{tx}",
+            "addressExplorerUrl": "https://bscscan.com/address/{address}"
+        },
+    ]
+}
