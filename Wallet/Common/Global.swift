@@ -5,8 +5,6 @@
 //  Created by 薛焱 on 2023/4/17.
 //
 
-import UIKit
+@_exported import SnapKit
+@_exported import SwifterSwift
 
-class Global: NSObject {
-
-}

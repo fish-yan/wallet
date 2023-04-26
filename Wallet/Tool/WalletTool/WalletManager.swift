@@ -7,6 +7,11 @@
 
 import UIKit
 
-class WalletManager: NSObject {
+let globalPassword = "88888888"
 
+public class WalletManager: NSObject {
+    static let manager = WalletManager()
+
+    private override init() { }
 }
+

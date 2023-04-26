@@ -6,7 +6,24 @@
 //
 
 import UIKit
+import HandyJSON
 
-class ChainManager: NSObject {
+public class ChainManager: NSObject {
 
+    static let manager = ChainManager()
+
+    var chainList: [ChainModel] = []
+
+    private override init() {
+        super.init()
+        chainListFromLocal()
+    }
+
+    private func chainListFromLocal() {
+        if let path = Bundle.main.path(forResource: "chains", ofType: "json"),
+           let data = FileManager.default.contents(atPath: path),
+           let chain = try? JSONDecoder().decode(ChainListModel.self, from: data) {
+            chainList = chain.chainList
+        }
+    }
 }
