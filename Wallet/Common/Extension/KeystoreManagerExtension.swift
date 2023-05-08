@@ -36,6 +36,9 @@ public extension KeystoreManager {
     }
 
     private static func save(at path: String, data: Data) throws {
+        if !FileManager.default.fileExists(atPath: storagePath) {
+            try FileManager.default.createDirectory(atPath: storagePath, withIntermediateDirectories: false)
+        }
         if FileManager.default.fileExists(atPath: path) {
             throw StorageError.keystoreExists
         }

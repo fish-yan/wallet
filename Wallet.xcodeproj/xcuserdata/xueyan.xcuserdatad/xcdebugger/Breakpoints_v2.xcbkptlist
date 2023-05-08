@@ -3,4 +3,116 @@
    uuid = "987FF4C7-ADB0-489C-AD87-CA31E7C5CA9B"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0F8CC580-3C4D-4240-B1FD-01EFEAC0ED67"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Library/Developer/Xcode/DerivedData/Wallet-aepufoqepxcjgfcmzfgddqkcqlmp/SourcePackages/checkouts/web3swift/Sources/web3swift/Tokens/ERC20/Web3+ERC20.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "transfer(from:to:amount:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8C836DBF-0ECA-4FA5-B425-EF2FEE780318"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Library/Developer/Xcode/DerivedData/Wallet-aepufoqepxcjgfcmzfgddqkcqlmp/SourcePackages/checkouts/web3swift/Sources/web3swift/Web3/Web3+Contract.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "createWriteOperation(_:parameters:extraData:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "32B0BF98-2F7B-413A-8A0E-9623E1E735F0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Library/Developer/Xcode/DerivedData/Wallet-aepufoqepxcjgfcmzfgddqkcqlmp/SourcePackages/checkouts/web3swift/Sources/web3swift/Operations/WriteOperation.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "writeToChain(password:policies:sendRaw:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "32B0BF98-2F7B-413A-8A0E-9623E1E735F0 - 5da8ae940a2bcdd4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for web3swift.WriteOperation.writeToChain(password: Swift.String, policies: Web3Core.Policies, sendRaw: Swift.Bool) async throws -&gt; web3swift.TransactionSendingResult"
+                  moduleName = "Wallet"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xueyan/Library/Developer/Xcode/DerivedData/Wallet-aepufoqepxcjgfcmzfgddqkcqlmp/SourcePackages/checkouts/web3swift/Sources/web3swift/Operations/WriteOperation.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "84">
+               </Location>
+               <Location
+                  uuid = "32B0BF98-2F7B-413A-8A0E-9623E1E735F0 - 7ed9570c4dd7bcde"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for web3swift.WriteOperation.writeToChain(password: Swift.String, policies: Web3Core.Policies, sendRaw: Swift.Bool) async throws -&gt; web3swift.TransactionSendingResult"
+                  moduleName = "Wallet"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xueyan/Library/Developer/Xcode/DerivedData/Wallet-aepufoqepxcjgfcmzfgddqkcqlmp/SourcePackages/checkouts/web3swift/Sources/web3swift/Operations/WriteOperation.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "32B0BF98-2F7B-413A-8A0E-9623E1E735F0 - 89d337283d3289d2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for web3swift.WriteOperation.writeToChain(password: Swift.String, policies: Web3Core.Policies, sendRaw: Swift.Bool) async throws -&gt; web3swift.TransactionSendingResult"
+                  moduleName = "Wallet"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xueyan/Library/Developer/Xcode/DerivedData/Wallet-aepufoqepxcjgfcmzfgddqkcqlmp/SourcePackages/checkouts/web3swift/Sources/web3swift/Operations/WriteOperation.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "212">
+               </Location>
+               <Location
+                  uuid = "32B0BF98-2F7B-413A-8A0E-9623E1E735F0 - c6634f0e50fb7fcd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(8) suspend resume partial function for web3swift.WriteOperation.writeToChain(password: Swift.String, policies: Web3Core.Policies, sendRaw: Swift.Bool) async throws -&gt; web3swift.TransactionSendingResult"
+                  moduleName = "Wallet"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xueyan/Library/Developer/Xcode/DerivedData/Wallet-aepufoqepxcjgfcmzfgddqkcqlmp/SourcePackages/checkouts/web3swift/Sources/web3swift/Operations/WriteOperation.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "60">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

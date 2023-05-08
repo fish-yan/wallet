@@ -10,7 +10,7 @@ import HandyJSON
 
 public class ChainManager: NSObject {
 
-    static let manager = ChainManager()
+    static let share = ChainManager()
 
     var chainList: [ChainModel] = []
 
@@ -25,5 +25,9 @@ public class ChainManager: NSObject {
            let chain = try? JSONDecoder().decode(ChainListModel.self, from: data) {
             chainList = chain.chainList
         }
+    }
+
+    func find(with chainId: Int) -> ChainModel? {
+        ChainManager.share.chainList.first(where: { $0.chainId == chainId })
     }
 }

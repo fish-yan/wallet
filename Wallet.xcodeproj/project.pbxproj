@@ -27,10 +27,11 @@
 		93E0197629EFF30A00C3120D /* ChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0197529EFF30A00C3120D /* ChainManager.swift */; };
 		93E0197829EFF35D00C3120D /* ChainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0197729EFF35D00C3120D /* ChainModel.swift */; };
 		93E0197B29EFF82E00C3120D /* WalletManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0197A29EFF82E00C3120D /* WalletManager.swift */; };
-		93E0197D29EFF88E00C3120D /* EVMWallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0197C29EFF88E00C3120D /* EVMWallet.swift */; };
+		93E0197D29EFF88E00C3120D /* EVMWalletTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0197C29EFF88E00C3120D /* EVMWalletTool.swift */; };
 		93E0197E29F0001F00C3120D /* chains.json in Resources */ = {isa = PBXBuildFile; fileRef = 93E0197129EFEB2400C3120D /* chains.json */; };
 		93E0198029F27F0300C3120D /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0197F29F27F0300C3120D /* StorageManager.swift */; };
 		93E0198329F8FED600C3120D /* KeystoreManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0198229F8FED600C3120D /* KeystoreManagerExtension.swift */; };
+		93E0198629FA16D400C3120D /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E0198529FA16D400C3120D /* TokenModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,9 +49,10 @@
 		93E0197529EFF30A00C3120D /* ChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainManager.swift; sourceTree = "<group>"; };
 		93E0197729EFF35D00C3120D /* ChainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainModel.swift; sourceTree = "<group>"; };
 		93E0197A29EFF82E00C3120D /* WalletManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletManager.swift; sourceTree = "<group>"; };
-		93E0197C29EFF88E00C3120D /* EVMWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EVMWallet.swift; sourceTree = "<group>"; };
+		93E0197C29EFF88E00C3120D /* EVMWalletTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EVMWalletTool.swift; sourceTree = "<group>"; };
 		93E0197F29F27F0300C3120D /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		93E0198229F8FED600C3120D /* KeystoreManagerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeystoreManagerExtension.swift; sourceTree = "<group>"; };
+		93E0198529FA16D400C3120D /* TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +152,7 @@
 		93DFCD2B29ED20560011B59A /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				93E0198429FA16C300C3120D /* TokenTool */,
 				93E0197929EFF81B00C3120D /* WalletTool */,
 				93E0197229EFF2DC00C3120D /* ChainTool */,
 			);
@@ -178,7 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				93E0197A29EFF82E00C3120D /* WalletManager.swift */,
-				93E0197C29EFF88E00C3120D /* EVMWallet.swift */,
+				93E0197C29EFF88E00C3120D /* EVMWalletTool.swift */,
 				93E0197F29F27F0300C3120D /* StorageManager.swift */,
 			);
 			path = WalletTool;
@@ -190,6 +193,14 @@
 				93E0198229F8FED600C3120D /* KeystoreManagerExtension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		93E0198429FA16C300C3120D /* TokenTool */ = {
+			isa = PBXGroup;
+			children = (
+				93E0198529FA16D400C3120D /* TokenModel.swift */,
+			);
+			path = TokenTool;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,7 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93E0197D29EFF88E00C3120D /* EVMWallet.swift in Sources */,
+				93E0197D29EFF88E00C3120D /* EVMWalletTool.swift in Sources */,
 				93E0198029F27F0300C3120D /* StorageManager.swift in Sources */,
 				93DFCD0129ECF44F0011B59A /* AppDelegate.swift in Sources */,
 				93DFCD0029ECF44F0011B59A /* RootTabBarViewController.swift in Sources */,
@@ -297,6 +308,7 @@
 				93DFCD0429ECF4570011B59A /* AssetViewController.swift in Sources */,
 				93E0197829EFF35D00C3120D /* ChainModel.swift in Sources */,
 				93E0198329F8FED600C3120D /* KeystoreManagerExtension.swift in Sources */,
+				93E0198629FA16D400C3120D /* TokenModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

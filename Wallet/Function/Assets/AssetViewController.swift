@@ -8,6 +8,7 @@
 import UIKit
 import web3swift
 import Web3Core
+import MBProgressHUD
 
 class AssetViewController: UIViewController {
 
@@ -33,7 +34,15 @@ class AssetViewController: UIViewController {
 
     lazy var walletBtn: UIButton = {
         let btn = UIButton(type: .custom)
-        btn.setTitle("Get Wallet Info", for: .normal)
+        btn.setTitle("transfer", for: .normal)
+        btn.backgroundColor = .blue
+        btn.addTarget(self, action: #selector(getWalletInfoAction), for: .touchUpInside)
+        return btn
+    }()
+
+    lazy var walletBtn1: UIButton = {
+        let btn = UIButton(type: .custom)
+        btn.setTitle("erc20 transfer", for: .normal)
         btn.backgroundColor = .blue
         btn.addTarget(self, action: #selector(erc20), for: .touchUpInside)
         return btn
@@ -47,10 +56,11 @@ class AssetViewController: UIViewController {
 
     var ethAddress: EthereumAddress?
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        let manager = ChainManager.manager
+        let manager = ChainManager.share
         print(manager.chainList)
     }
 
@@ -58,7 +68,7 @@ class AssetViewController: UIViewController {
         title = "Asset"
         view.backgroundColor = .white
         view.addSubview(scrollView)
-        scrollView.addSubviews([textView, importBtn, infoLabel, walletBtn])
+        scrollView.addSubviews([textView, importBtn, infoLabel, walletBtn, walletBtn1])
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -83,120 +93,73 @@ class AssetViewController: UIViewController {
             make.centerX.equalToSuperview()
             make.width.equalTo(150)
             make.height.equalTo(40)
+        }
+        walletBtn1.snp.makeConstraints { make in
+            make.top.equalTo(walletBtn.snp.bottom).offset(50)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(150)
+            make.height.equalTo(40)
             make.bottom.equalToSuperview().offset(-50)
         }
     }
 
     @objc func importAction() {
-
         guard let text = textView.text else {
             return
         }
-        let wallet = EVMWallet()
         DispatchQueue.global().async {
-            try? wallet.importWallet(mnemonic: text, password: globalPassword)
+            do {
+                let address = try EVMWalletTool.importWallet(mnemonic: text, password: globalPassword)
+                let wallet = Wallet()
+                wallet.name = "my wallet"
+                wallet.address = address
 
+                let token1 = TokenModel()
+                token1.chain = ChainManager.share.find(with: 88880)
+
+                let token2 = TokenModel()
+                token2.chain = ChainManager.share.find(with: 5)
+                token2.type = .erc20
+                token2.contract = "0x18ec87cf170e2a5cd8fbda57008f0b9ebfac6eb9"
+
+                wallet.tokens = [token1, token2]
+
+                WalletManager.share.add(wallet)
+                
+            } catch let error {
+                print(error)
+            }
         }
     }
 
     @objc func getWalletInfoAction() {
         Task {
-            if let ethAddress = ethAddress,
-               let keystoreManager = KeystoreManager.share,
-               let url = URL(string: "https://scoville-rpc.chiliz.com/"),
-               let provider = try? await Web3HttpProvider(url: url, network: .Goerli, keystoreManager: keystoreManager) {
-                let web3 = Web3(provider: provider)
-                if let value = try? await web3.eth.getBalance(for: ethAddress) {
-                    let price = Utilities.formatToPrecision(value)
-                    print("price:",price)
-                }
-                if let value = try? await web3.eth.gasPrice() {
-                    let gas = Utilities.formatToPrecision(value)
-                    print("gas:", gas)
-                }
-                var transaction: CodableTransaction = .emptyTransaction
-                let value = Utilities.parseToBigUInt("0.00001", units: .ether)
-                transaction.value = value!
-                transaction.chainID = 88880
-                transaction.gasLimit = 21_000
-                let toAddress = EthereumAddress(from: "0xE24aa36Cc8bf41b0b8378809aCc8d11a35EF4E9f")
-                transaction.to = toAddress!
-                do {
-                    transaction.gasPrice = try await web3.eth.gasPrice()
-                    transaction.nonce = try await web3.eth.getTransactionCount(for: ethAddress)
-                    try transaction.sign(privateKey: keystoreManager.UNSAFE_getPrivateKeyData(password: "88888888a", account: ethAddress))
-                    print(transaction)
-                    let result = try await web3.eth.send(raw: transaction.encode()!)
-                    print("hash==", result.hash)
-                } catch let error {
-                    print(error)
-                }
+            guard let wallet = WalletManager.share.activeWallet,
+                  let token = wallet.tokens.first(where: {$0.chain?.chainId == 88880}) else {
+                return
+            }
+            do {
+                let hash = try await token.transfer(to: "0xE24aa36Cc8bf41b0b8378809aCc8d11a35EF4E9f", amount: "0.001", password: globalPassword)
+                print("hash:", hash)
+            } catch let error {
+                print("error:", error)
             }
         }
     }
 
     @objc func erc20() {
-
         Task {
-            if let url = URL(string: "https://goerli.blockpi.network/v1/rpc/public"),
-               let keystoreManager = KeystoreManager.share,
-               let ethAddress = keystoreManager.addresses?.first,
-               let provider = try? await Web3HttpProvider(url: url, network: .Goerli, keystoreManager: keystoreManager) {
-                let web3 = Web3(provider: provider)
-                if let value = try? await web3.eth.getBalance(for: ethAddress) {
-                    let price = Utilities.formatToPrecision(value)
-                    print("price:",price)
+            do {
+                guard let wallet = WalletManager.share.activeWallet,
+                      let token = wallet.tokens.first(where: {$0.chain?.chainId == 5}) else {
+                    return
                 }
-                if let value = try? await web3.eth.gasPrice() {
-                    let gas = Utilities.formatToPrecision(value)
-                    print("gas:", gas)
-                }
-                
-                let value = Utilities.parseToBigUInt("0.00001", decimals: 8)!
-                let toAddress = EthereumAddress(from: "0xE24aa36Cc8bf41b0b8378809aCc8d11a35EF4E9f")!
-                let contractAddress = EthereumAddress(from: "0x18ec87cf170e2a5cd8fbda57008f0b9ebfac6eb9")!
-
-                let ethContract = try! EthereumContract(Web3.Utils.erc20ABI, at: contractAddress)
-
-                let transfer = ethContract.method("transfer", parameters: [toAddress, value], extraData: Data())
-
-
-
-                let erc20 = ERC20(web3: web3, provider: provider, address: contractAddress)
-                let opti = try! await erc20.transfer(from: ethAddress, to: toAddress, amount: "0.001")
-                let result = try! await opti.writeToChain(password: globalPassword)
-                print(result)
-
-                var transaction: CodableTransaction = .emptyTransaction
-                transaction.from = ethAddress
-                transaction.chainID = 5
-//                transaction.gasLimit = 21_000
-                transaction.data = transfer!
-                transaction.to = EthereumAddress(from: "0x18ec87cf170e2a5cd8fbda57008f0b9ebfac6eb9")!
-
-                do {
-//                    transaction.gasPrice = try await web3.eth.gasPrice()
-                    transaction.nonce = try await web3.eth.getTransactionCount(for: ethAddress)
-                    try transaction.sign(privateKey: keystoreManager.UNSAFE_getPrivateKeyData(password: globalPassword, account: ethAddress))
-                    print(transaction)
-                    let result = try await web3.eth.send(raw: transaction.encode()!)
-                    print(result.hash)
-                } catch let error {
-                    print(error)
-                }
-                
-
+                let hash = try await token.transfer(to: "0xE24aa36Cc8bf41b0b8378809aCc8d11a35EF4E9f", amount: "0.001", password: globalPassword)
+                print("hash:", hash)
+            } catch let error {
+                print("error:", error)
             }
         }
     }
 
-}
-
-extension Utilities {
-    static func publicToBtcAddress(_ publicKey: Data) -> String {
-        let prefix = Data([0x30])
-        let payload = try! RIPEMD160.hash(message: publicKey.sha256())
-        let checksum = (prefix + payload).sha256().sha256().prefix(4)
-        return Array(prefix + payload + checksum).base58EncodedString
-    }
 }

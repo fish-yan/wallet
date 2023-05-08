@@ -9,24 +9,28 @@ import UIKit
 import web3swift
 import Web3Core
 
-public class EVMWallet: NSObject {
+public class EVMWalletTool: NSObject {
 
-    func create(password: String, count: Int = 12) throws {
+    static func create(password: String, count: Int = 12) throws -> String {
         let bitsOfEntropy = count / 12 * 128
         guard let mnemonic = try BIP39.generateMnemonics(bitsOfEntropy: bitsOfEntropy, language: .english) else {
             throw AbstractKeystoreError.noEntropyError
         }
-        try importWallet(mnemonic: mnemonic, password: password)
+        return try importWallet(mnemonic: mnemonic, password: password)
     }
 
-    func importWallet(mnemonic: String, password: String) throws {
+    static func importWallet(mnemonic: String, password: String) throws -> String {
         guard let keystore = try BIP32Keystore(mnemonics: mnemonic, password: password) else {
             throw AbstractKeystoreError.noEntropyError
         }
         try KeystoreManager.addKeystore(keystore)
+        guard let address = keystore.addresses?.first?.address else {
+            throw AbstractKeystoreError.invalidAccountError
+        }
+        return address
     }
 
-    func importWallet(privateKey: String, password: String) throws {
+    static func importWallet(privateKey: String, password: String) throws -> String {
         let formattedKey = privateKey.trimmingCharacters(in: .whitespacesAndNewlines)
         guard let dataKey = Data.fromHex(formattedKey) else {
             throw AbstractKeystoreError.aesError
@@ -35,23 +39,20 @@ public class EVMWallet: NSObject {
             throw AbstractKeystoreError.noEntropyError
         }
         try KeystoreManager.addKeystore(keystore)
+        guard let address = keystore.addresses?.first?.address else {
+            throw AbstractKeystoreError.invalidAccountError
+        }
+        return address
     }
 
-    func importWallet(keystoreData: Data, password: String) throws {
+    static func importWallet(keystoreData: Data, password: String) throws -> String {
         guard let keystore = BIP32Keystore(keystoreData) else {
             throw AbstractKeystoreError.noEntropyError
         }
         try KeystoreManager.addKeystore(keystore)
+        guard let address = keystore.addresses?.first?.address else {
+            throw AbstractKeystoreError.invalidAccountError
+        }
+        return address
     }
-
-//    func privateKey(_ password: String) -> Data? {
-//        guard let address = address else {
-//            return nil
-//        }
-//        return try? keystore.UNSAFE_getPrivateKeyData(password: password, account: address)
-//    }
-
-//    func publicKey(_ privateKey: Data) -> Data? {
-//        return SECP256K1.privateToPublic(privateKey: privateKey, compressed: true)
-//    }
 }

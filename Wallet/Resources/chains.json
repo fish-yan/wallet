@@ -20,5 +20,25 @@
             "txExplorerUrl": "https://bscscan.com/tx/{tx}",
             "addressExplorerUrl": "https://bscscan.com/address/{address}"
         },
+        {
+            "chainType": "chiliz",
+            "chainId": 88880,
+            "rpcUrl": "https://scoville-rpc.chiliz.com/",
+            "icon": "",
+            "name": "Chiliz",
+            "unit": "CHZ",
+            "txExplorerUrl": "https://scoville-explorer.chiliz.com/tx/{tx}",
+            "addressExplorerUrl": "https://scoville-explorer.chiliz.com/address/{address}"
+        },
+        {
+            "chainType": "eth",
+            "chainId": 5,
+            "rpcUrl": "https://eth-goerli.api.onfinality.io/public",
+            "icon": "https://icons.llamao.fi/icons/chains/rsz_ethereum.jpg",
+            "name": "Goerli",
+            "unit": "ETH",
+            "txExplorerUrl": "https://goerli.etherscan.io/tx/{tx}",
+            "addressExplorerUrl": "https://goerli.etherscan.io/address/{address}"
+        }
     ]
 }
