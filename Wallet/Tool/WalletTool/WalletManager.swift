@@ -45,57 +45,61 @@ public class WalletManager: NSObject, Codable {
 
     private var activeWalletId: String?
 
-    func active(with walletId: String) {
+    @discardableResult
+    func active(with walletId: String) -> Bool {
         activeWalletId = walletId
-        save()
+        return save()
     }
 
-    func add(_ wallet: Wallet) {
+    @discardableResult
+    func add(_ wallet: Wallet) -> Bool {
+        if wallets.contains(where: {$0.id == wallet.id}) {
+            print("wallet is exist")
+            return false
+        }
         wallets.append(wallet)
         if activeWalletId == nil {
             activeWalletId = wallet.id
         }
-        save()
+        return save()
     }
 
-    func delete(_ walletId: String) {
-        wallets.removeFirst(where: { $0.id == walletId })
+    @discardableResult
+    func delete(_ walletId: String) -> Bool {
+        guard let _ = wallets.removeFirst(where: { $0.id == walletId }) else {
+            print("wallet not exist")
+            return false
+        }
         if walletId == activeWalletId {
             activeWalletId = wallets.first?.id
         }
-        save()
+        return save()
     }
 
-    func update(_ wallet: Wallet) {
-        guard let oldWallet = find(wallet.id) else { return }
+    @discardableResult
+    func update(_ wallet: Wallet) -> Bool {
+        guard let oldWallet = find(wallet.id) else { return false }
         wallets.replace([oldWallet], with: [wallet])
-        save()
+        return save()
     }
 
     func find(_ walletId: String) -> Wallet? {
         return wallets.first(where: { $0.id == walletId})
     }
 
-    func save() {
+    @discardableResult
+    func save() -> Bool {
         let data = try? JSONEncoder().encode(self)
-        FileManager.default.createFile(atPath: WalletManager.walletPath, contents: data)
+        return FileManager.default.createFile(atPath: WalletManager.walletPath, contents: data)
     }
 }
 
 public class Wallet: NSObject, Codable {
-    var name: String = "" {
-        didSet {
-           id = (name + address).md5()
-        }
-    }
-
     private(set) var id: String = ""
 
-    var address: String = "" {
-        didSet{
-            id = (name + address).md5()
-        }
-    }
+    var name: String = ""
+
+    var address: String = ""
 
     var keystore: AbstractKeystore? {
         if let ethAddress = EthereumAddress(from: address) {
@@ -105,5 +109,14 @@ public class Wallet: NSObject, Codable {
     }
 
     var tokens: [TokenModel] = []
+
+    private override init() { }
+
+    init(_ name: String, address: String) {
+        super.init()
+        self.name = name
+        self.address = address
+        self.id = (name + address).md5()
+    }
 }
 

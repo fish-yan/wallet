@@ -110,9 +110,7 @@ class AssetViewController: UIViewController {
         DispatchQueue.global().async {
             do {
                 let address = try EVMWalletTool.importWallet(mnemonic: text, password: globalPassword)
-                let wallet = Wallet()
-                wallet.name = "my wallet"
-                wallet.address = address
+                let wallet = Wallet("my wallet", address: address)
 
                 let token1 = TokenModel()
                 token1.chain = ChainManager.share.find(with: 88880)

@@ -34,7 +34,7 @@ public class TokenModel: NSObject, TokenProtocol {
         guard let keystore = wallet.keystore else {
             throw Web3Error.walletError
         }
-        guard let chain = chain else {
+        guard let chain else {
             throw Web3Error.nodeError(desc: "chain error")
         }
         guard let url = URL(string: chain.rpcUrl) else {
@@ -80,7 +80,7 @@ public class TokenModel: NSObject, TokenProtocol {
     }
 
     func transferERC20(from: EthereumAddress, to: EthereumAddress, amount: String, password: String, web3: Web3) async throws -> String {
-        guard let contract = contract,
+        guard let contract,
               let contractAddress = EthereumAddress(contract) else {
             throw Web3Error.inputError(desc: "contract address error")
         }
