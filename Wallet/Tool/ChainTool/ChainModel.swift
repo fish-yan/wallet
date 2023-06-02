@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChainModel: NSObject, Codable {
+struct ChainModel: Codable {
     var chainType: String = ""
     var chainId: Int = 0
     var rpcUrl: String = ""
@@ -18,6 +18,6 @@ class ChainModel: NSObject, Codable {
     var addressExplorerUrl: String = ""
 }
 
-class ChainListModel: NSObject, Codable {
+struct ChainListModel: Codable {
     var chainList: [ChainModel] = []
 }
